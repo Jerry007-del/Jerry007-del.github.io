@@ -1,0 +1,218 @@
+/* ===== 全局设置 ===== */
+/* CSS 里 /* 开头结尾是注释，和 HTML 的 <!-- --> 不同 */
+/* :root 定义"全局变量"，改一处颜色全站生效，很省事 */
+:root {
+  --bg: #0f172a;          /* 页面背景色：深夜蓝 */
+  --card: #1e293b;        /* 卡片背景色 */
+  --text: #e2e8f0;        /* 主文字颜色（浅色，深色背景上要用浅字） */
+  --accent: #38bdf8;      /* 强调色：天蓝，Jerry 专属 */
+  --accent2: #a78bfa;     /* 第二强调色：紫色 */
+}
+
+/* * 号是通配符，选中所有元素；box-sizing 让宽度计算更符合直觉 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 给整个页面设置背景、文字颜色和字体 */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif; /* 中文字体优先 */
+  line-height: 1.6;          /* 行高，1.6 倍读起来最舒服 */
+  min-height: 100vh;         /* 至少占满一屏高 */
+}
+
+/* ===== 顶部欢迎区 ===== */
+.hero {
+  text-align: center;        /* 文字居中 */
+  padding: 80px 20px 40px;   /* 上80 右20 下40 左20（顺时针） */
+  background: linear-gradient(135deg, #1e3a8a, #0f172a); /* 渐变背景 */
+}
+
+/* h1 里的高亮字：名字用强调色 */
+.highlight {
+  color: var(--accent);
+}
+
+.subtitle {
+  color: #94a3b8;            /* 次要文字用灰色，有层次感 */
+  margin-top: 8px;
+}
+
+/* 打字机效果的光标，JS 会往 .typing 里填文字 */
+.typing {
+  margin-top: 16px;
+  color: var(--accent2);
+  font-family: Consolas, monospace; /* 等宽字体，代码感 */
+  min-height: 24px;          /* 防止没内容时高度跳动 */
+}
+
+.typing::after {
+  content: "|";              /* ::after 在元素后面加一个伪元素，这里做闪烁光标 */
+  animation: blink 1s infinite; /* 无限循环的闪烁动画 */
+}
+
+@keyframes blink {
+  50% { opacity: 0; }        /* 动画：50% 的时间完全透明，就形成闪烁 */
+}
+
+/* ===== 卡片布局 ===== */
+main {
+  max-width: 720px;          /* 限制最大宽度，太宽了不好读 */
+  margin: 0 auto;            /* 上下0 左右auto = 水平居中 */
+  padding: 20px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 12px;       /* 圆角 */
+  padding: 24px;
+  margin-bottom: 20px;       /* 卡片之间的间距 */
+  border: 1px solid #334155; /* 细边框增加层次 */
+}
+
+.card h2 {
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+/* ===== 技能进度条 ===== */
+.skill {
+  margin-bottom: 12px;
+}
+
+.skill span {
+  display: block;            /* 让文字独占一行 */
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.bar {
+  background: #334155;
+  border-radius: 99px;       /* 够大就是胶囊形 */
+  height: 10px;
+  overflow: hidden;          /* 隐藏超出的部分 */
+}
+
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2)); /* 渐变进度条 */
+  border-radius: 99px;
+}
+
+/* ===== 作品展示区（v2.0 新增） ===== */
+.section-note {
+  color: #94a3b8;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+/* 网格布局：两列作品卡。grid 是 CSS 布局神器，以后你会爱死它 */
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 两列均分 */
+  gap: 12px;                       /* 卡片间距 */
+}
+
+/* 手机上只有一列，不然太挤——这就是"响应式" */
+@media (max-width: 500px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.project-card {
+  background: #0f172a;             /* 比卡片底色更深一层，做出层次 */
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 16px;
+  transition: transform 0.2s, border-color 0.2s; /* 两个属性一起加过渡 */
+}
+
+/* 鼠标放上去：卡片上浮 + 边框发光，小细节大质感 */
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.project-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.project-card h3 {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.project-card p {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 10px;
+}
+
+/* 小标签：技能徽章 */
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  margin-right: 4px;
+  border-radius: 99px;
+  background: rgba(56, 189, 248, 0.15); /* 强调色的半透明版 */
+  color: var(--accent);
+}
+
+/* ===== 留言区 ===== */
+#nameInput {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #475569;
+  background: #0f172a;
+  color: var(--text);
+  font-size: 14px;
+  outline: none;             /* 去掉点击时的默认蓝框 */
+}
+
+#nameInput:focus {
+  border-color: var(--accent); /* 聚焦时边框变色，交互反馈 */
+}
+
+button {
+  margin-top: 12px;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #0f172a;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;           /* 鼠标放上去变成小手 */
+  transition: transform 0.15s; /* 过渡动画，让变化更柔和 */
+}
+
+/* :hover 表示鼠标悬停状态 */
+button:hover {
+  transform: scale(1.05);    /* 放大 5% */
+}
+
+button:active {
+  transform: scale(0.95);    /* 按下去缩小，有"按"的感觉 */
+}
+
+.greet-output {
+  margin-top: 12px;
+  color: var(--accent2);
+  min-height: 24px;
+}
+
+/* ===== 页脚 ===== */
+footer {
+  text-align: center;
+  padding: 24px;
+  color: #64748b;
+  font-size: 13px;
+}

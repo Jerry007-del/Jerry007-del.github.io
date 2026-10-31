@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!-- 这行是声明：告诉浏览器"这是一个现代网页"，每个网页的第一行都是它 -->
+<html lang="zh-CN">
+<!-- lang="zh-CN" 表示页面语言是简体中文，对搜索引擎和无障碍阅读有帮助 -->
+
+<head>
+  <!-- head 里放的是"看不见的信息"：页面标题、编码、样式表链接等 -->
+  <meta charset="UTF-8" />
+  <!-- 编码方式，UTF-8 能显示中文，不写的话中文可能乱码 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- 这行很关键！让页面在手机上也能正常显示（响应式的基础） -->
+  <title>Jerry 的个人主页</title>
+  <!-- 浏览器标签页上显示的文字 -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- 引入外部样式表：页面的"颜值"都写在 style.css 里 -->
+</head>
+
+<body>
+  <!-- body 里放的是"看得见的内容" -->
+
+  <!-- 顶部欢迎区 -->
+  <header class="hero">
+    <!-- header 是语义化标签，表示页头 -->
+    <h1>你好，我是 <span class="highlight">Jerry</span> 👋</h1>
+    <!-- h1 是最大的标题；span 用来圈住一小段文字单独加样式 -->
+    <p class="subtitle">软件工程在读 · Web 方向 · 未来的全栈开发者</p>
+    <p class="typing" id="typing"></p>
+    <!-- 这个空标签会被 JS 填充内容，实现"打字机效果" -->
+  </header>
+
+  <!-- 主要内容区 -->
+  <main>
+    <!-- main 标签包住页面的核心内容，一个页面只能有一个 -->
+
+    <!-- 关于我 -->
+    <section class="card">
+      <!-- section 是一个内容区块；class="card" 让它变成一张卡片 -->
+      <h2>🧑‍💻 关于我</h2>
+      <p>
+        大二软件工程学生，主攻 Web 方向。喜欢打篮球 还是瓦学弟 
+        目前正在和我的 AI 兄弟一起学全栈开发，目标是自己动手做一个接入 AI 的应用。一步一个脚印 加油
+      </p>
+    </section>
+
+    <!-- 技能 -->
+    <section class="card">
+      <h2>🛠️ 技能进度条</h2>
+      <!-- 技能条是纯 CSS 做的，width 越大表示越熟练 -->
+      <div class="skill">
+        <span>打篮球 / 打瓦</span>
+        <div class="bar"><div class="bar-fill" style="width: 47%"></div></div>
+      </div>
+      <div class="skill">
+        <span>人生梦想进度条</span>
+        <div class="bar"><div class="bar-fill" style="width: 18%"></div></div>
+      </div>
+      <div class="skill">
+        <span>学新东西的速度</span>
+        <div class="bar"><div class="bar-fill" style="width: 90%"></div></div>
+      </div>
+    </section>
+
+    <!-- 作品展示区：v2.0 新增 -->
+    <section class="card">
+      <h2>🚀 我的作品</h2>
+      <p class="section-note">会持续更新，见证我从 0 到 1 👇</p>
+
+      <!-- 每个作品是一张"作品卡"：div.project-card -->
+      <div class="project-grid">
+
+        <!-- 作品1：就是你现在看的这个主页 -->
+        <div class="project-card">
+          <div class="project-icon">🏠</div>
+          <h3>个人主页 v2.0</h3>
+          <p>我的第一个网页！纯 HTML + CSS + JS 手搓，正在学的第一个项目。</p>
+          <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span>
+        </div>
+
+        <!-- 作品2：占位卡，以后做完真项目就替换掉 -->
+        <div class="project-card">
+          <div class="project-icon">🤖</div>
+          <h3>AI 小应用（筹备中）</h3>
+          <p>计划做一个接入大模型 API 的小工具，敬请期待...</p>
+          <span class="tag">AI</span><span class="tag">敬请期待</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 留言区：演示 JS 交互 -->
+    <section class="card">
+      <h2>💬 来打个招呼</h2>
+      <!-- input 是输入框；下面的按钮点击后会触发 script.js 里的函数 -->
+      <input type="text" id="nameInput" placeholder="输入你的名字..." />
+      <button id="greetBtn">点我打招呼</button>
+      <!-- 这个空 div 用来显示 JS 生成的问候语 -->
+      <div id="greetOutput" class="greet-output"></div>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer>
+    <p>© 2026 Jerry · 由 bro 协助打造 · Powered by 好奇心</p>
+  </footer>
+
+  <!-- 引入 JS：页面的"行为"都写在 script.js 里。放在 body 末尾，保证页面先加载完 -->
+  <script src="script.js"></script>
+</body>
+
+</html>
