@@ -15,34 +15,39 @@ let sentenceIndex = 0; // 当前第几句
 let charIndex = 0;     // 当前打到第几个字
 let deleting = false;  // 是否正在删除
 
-// 3. setInterval：每隔一段时间执行一次函数（毫秒单位）
-setInterval(function () {
+// ===== v3.0 升级：用 setTimeout 递归代替 setInterval =====
+// 好处：每一轮都能动态调整速度（打字慢、删除快、句尾停顿），这才是正经写法
+const TYPE_SPEED = 200;   // 打字速度：每 200ms 出一个字（之前 100ms 太快了）
+const DELETE_SPEED = 45;  // 删除速度
+const PAUSE_TIME = 2400;  // 一句话打完后的停顿
+
+function typeLoop() {
   const current = sentences[sentenceIndex];
+  let delay;
 
   if (!deleting) {
-    // 打字阶段：每 100ms 出一个字
     charIndex++;
-    typingEl.textContent = current.slice(0, charIndex); // slice 截取字符串
+    typingEl.textContent = current.slice(0, charIndex);
+    delay = TYPE_SPEED; // 打字：慢慢来
 
     if (charIndex === current.length) {
-      // 打完一整句，停 2 秒再开始删除
       deleting = true;
-      // setTimeout：延时执行一次（注意和 setInterval 的区别）
-      setTimeout(() => (deleting = false), 2000);
+      delay = PAUSE_TIME; // 打完整句：停 2.4 秒欣赏一下
     }
   } else {
-    // 删除阶段：每 50ms 删一个字（删除比打字快，看起来更自然）
     charIndex--;
     typingEl.textContent = current.slice(0, charIndex);
+    delay = DELETE_SPEED; // 删除：快进
 
     if (charIndex === 0) {
-      // 删完了，换下一句（取余 % 让它循环起来）
       deleting = false;
       sentenceIndex = (sentenceIndex + 1) % sentences.length;
+      delay = 500; // 换句前稍微缓一下
     }
   }
-}, deleting ? 50 : 100);
-// 注意：这里简化了，实际间隔固定为100ms也能接受，先理解原理最重要
+  setTimeout(typeLoop, delay); // 递归调用自己，实现无限循环
+}
+typeLoop(); // 启动！
 
 // ===== 打招呼交互 =====
 // 4. 选中按钮和输出区域

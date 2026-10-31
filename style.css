@@ -1,82 +1,204 @@
-/* ===== 全局设置 ===== */
-/* CSS 里 /* 开头结尾是注释，和 HTML 的 <!-- --> 不同 */
-/* :root 定义"全局变量"，改一处颜色全站生效，很省事 */
+/* ===== Jerry 个人主页 v3.0 「装X版」 ===== */
+/* 升级清单：极光流动背景 / 玻璃拟态卡片 / 渐变发光名字 / 入场动画 */
+
+/* :root 全局变量：改一处全站生效 */
 :root {
-  --bg: #0f172a;          /* 页面背景色：深夜蓝 */
-  --card: #1e293b;        /* 卡片背景色 */
-  --text: #e2e8f0;        /* 主文字颜色（浅色，深色背景上要用浅字） */
-  --accent: #38bdf8;      /* 强调色：天蓝，Jerry 专属 */
-  --accent2: #a78bfa;     /* 第二强调色：紫色 */
+  --bg: #0b1120;           /* 背景更深邃了 */
+  --card: rgba(30, 41, 59, 0.55); /* 卡片改成半透明，配合毛玻璃效果 */
+  --text: #e2e8f0;
+  --accent: #38bdf8;       /* 天蓝 */
+  --accent2: #a78bfa;      /* 紫 */
+  --accent3: #f472b6;      /* 粉（新成员，用来做渐变） */
 }
 
-/* * 号是通配符，选中所有元素；box-sizing 让宽度计算更符合直觉 */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* 给整个页面设置背景、文字颜色和字体 */
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: "Microsoft YaHei", "PingFang SC", sans-serif; /* 中文字体优先 */
-  line-height: 1.6;          /* 行高，1.6 倍读起来最舒服 */
-  min-height: 100vh;         /* 至少占满一屏高 */
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden; /* 防止极光溢出产生横向滚动条 */
+  position: relative;
+}
+
+/* ===== 极光背景：两个巨大的彩色光斑在背后缓慢飘动 ===== */
+/* 用 ::before/::after 在 body 上挂两个"假元素"，不占 HTML 结构 */
+body::before,
+body::after {
+  content: "";
+  position: fixed;           /* 固定在屏幕上，滚动时不动 */
+  width: 60vw;               /* 视口宽度的 60%，很大 */
+  height: 60vw;
+  border-radius: 50%;        /* 圆形 */
+  filter: blur(120px);       /* 大模糊 = 光斑效果 */
+  opacity: 0.35;
+  z-index: -1;               /* 藏在所有内容后面 */
+  pointer-events: none;      /* 不挡鼠标操作 */
+}
+
+/* 蓝紫色光斑：在左上角，慢慢漂移 */
+body::before {
+  background: radial-gradient(circle, #2563eb, #7c3aed);
+  top: -20%;
+  left: -15%;
+  animation: drift1 18s ease-in-out infinite alternate;
+}
+
+/* 粉青色光斑：在右下角，反向漂移 */
+body::after {
+  background: radial-gradient(circle, #ec4899, #06b6d4);
+  bottom: -25%;
+  right: -15%;
+  animation: drift2 22s ease-in-out infinite alternate;
+}
+
+/* 两个漂浮动画：translate 让它移动，alternate 让它来回飘 */
+@keyframes drift1 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(12vw, 8vh) scale(1.15); }
+}
+@keyframes drift2 {
+  from { transform: translate(0, 0) scale(1.1); }
+  to   { transform: translate(-10vw, -6vh) scale(0.95); }
 }
 
 /* ===== 顶部欢迎区 ===== */
 .hero {
-  text-align: center;        /* 文字居中 */
-  padding: 80px 20px 40px;   /* 上80 右20 下40 左20（顺时针） */
-  background: linear-gradient(135deg, #1e3a8a, #0f172a); /* 渐变背景 */
+  text-align: center;
+  padding: 80px 20px 40px;
 }
 
-/* h1 里的高亮字：名字用强调色 */
+/* 头像：发光圆环包裹的表情 */
+.avatar {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.6),   /* 外发光 */
+              inset 0 0 12px rgba(56, 189, 248, 0.3); /* 内发光 */
+  animation: pulse 3s ease-in-out infinite; /* 呼吸动画 */
+}
+
+/* 呼吸动画：光晕一收一放，像活的一样 */
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 16px rgba(56, 189, 248, 0.4), inset 0 0 8px rgba(56, 189, 248, 0.2); }
+  50%      { box-shadow: 0 0 36px rgba(56, 189, 248, 0.8), inset 0 0 14px rgba(56, 189, 248, 0.4); }
+}
+
+/* 名字的渐变字：以前是纯色，现在流动起来 */
 .highlight {
-  color: var(--accent);
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3), var(--accent));
+  background-size: 300% 100%;  /* 渐变比元素宽，才有移动空间 */
+  -webkit-background-clip: text; /* 只在文字上显示渐变 */
+  background-clip: text;
+  color: transparent;            /* 文字本身透明，露出背后的渐变 */
+  animation: flow 4s linear infinite;
+}
+
+@keyframes flow {
+  from { background-position: 0% 50%; }
+  to   { background-position: 300% 50%; }
 }
 
 .subtitle {
-  color: #94a3b8;            /* 次要文字用灰色，有层次感 */
+  color: #94a3b8;
   margin-top: 8px;
 }
 
-/* 打字机效果的光标，JS 会往 .typing 里填文字 */
+/* 打字机效果 */
 .typing {
   margin-top: 16px;
   color: var(--accent2);
-  font-family: Consolas, monospace; /* 等宽字体，代码感 */
-  min-height: 24px;          /* 防止没内容时高度跳动 */
+  font-family: Consolas, monospace;
+  min-height: 24px;
 }
 
 .typing::after {
-  content: "|";              /* ::after 在元素后面加一个伪元素，这里做闪烁光标 */
-  animation: blink 1s infinite; /* 无限循环的闪烁动画 */
+  content: "|";
+  animation: blink 1s infinite;
 }
 
 @keyframes blink {
-  50% { opacity: 0; }        /* 动画：50% 的时间完全透明，就形成闪烁 */
+  50% { opacity: 0; }
 }
 
-/* ===== 卡片布局 ===== */
+/* ===== 社交按钮 ===== */
+.social-row {
+  margin-top: 24px;
+}
+
+.social-btn {
+  display: inline-block;
+  padding: 10px 22px;
+  border-radius: 99px;
+  color: var(--text);
+  text-decoration: none;      /* 去掉链接自带的下划线 */
+  background: var(--card);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  font-size: 14px;
+  transition: all 0.25s;      /* 所有变化都加过渡 */
+}
+
+.social-btn:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.5); /* 悬停发光 */
+  transform: translateY(-3px);
+}
+
+/* ===== 卡片布局（玻璃拟态） ===== */
 main {
-  max-width: 720px;          /* 限制最大宽度，太宽了不好读 */
-  margin: 0 auto;            /* 上下0 左右auto = 水平居中 */
+  max-width: 720px;
+  margin: 0 auto;
   padding: 20px;
 }
 
 .card {
   background: var(--card);
-  border-radius: 12px;       /* 圆角 */
+  backdrop-filter: blur(12px);      /* 毛玻璃核心：把背后的极光糊掉 */
+  -webkit-backdrop-filter: blur(12px); /* Safari 浏览器要写这个前缀 */
+  border-radius: 16px;
   padding: 24px;
-  margin-bottom: 20px;       /* 卡片之间的间距 */
-  border: 1px solid #334155; /* 细边框增加层次 */
+  margin-bottom: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.2); /* 半透明边框 */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .card h2 {
   margin-bottom: 12px;
   font-size: 20px;
+}
+
+/* ===== 入场动画：每张卡片依次"浮上来" ===== */
+/* nth-child 选择第几个卡片，delay 让它们错开时间，像排队登场 */
+.card {
+  animation: fadeUp 0.7s ease-out backwards;
+}
+main .card:nth-child(1) { animation-delay: 0.1s; }
+main .card:nth-child(2) { animation-delay: 0.25s; }
+main .card:nth-child(3) { animation-delay: 0.4s; }
+main .card:nth-child(4) { animation-delay: 0.55s; }
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px); /* 从下方 30px 处升起来 */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ===== 技能进度条 ===== */
@@ -85,39 +207,38 @@ main {
 }
 
 .skill span {
-  display: block;            /* 让文字独占一行 */
+  display: block;
   font-size: 14px;
   margin-bottom: 4px;
 }
 
 .bar {
-  background: #334155;
-  border-radius: 99px;       /* 够大就是胶囊形 */
+  background: rgba(51, 65, 85, 0.8);
+  border-radius: 99px;
   height: 10px;
-  overflow: hidden;          /* 隐藏超出的部分 */
+  overflow: hidden;
 }
 
 .bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent), var(--accent2)); /* 渐变进度条 */
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
   border-radius: 99px;
+  box-shadow: 0 0 10px rgba(167, 139, 250, 0.6); /* 进度条也发光 */
 }
 
-/* ===== 作品展示区（v2.0 新增） ===== */
+/* ===== 作品展示区 ===== */
 .section-note {
   color: #94a3b8;
   font-size: 13px;
   margin-bottom: 16px;
 }
 
-/* 网格布局：两列作品卡。grid 是 CSS 布局神器，以后你会爱死它 */
 .project-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 两列均分 */
-  gap: 12px;                       /* 卡片间距 */
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
-/* 手机上只有一列，不然太挤——这就是"响应式" */
 @media (max-width: 500px) {
   .project-grid {
     grid-template-columns: 1fr;
@@ -125,17 +246,17 @@ main {
 }
 
 .project-card {
-  background: #0f172a;             /* 比卡片底色更深一层，做出层次 */
-  border: 1px solid #334155;
-  border-radius: 10px;
+  background: rgba(11, 17, 32, 0.6);
+  border: 1px solid rgba(51, 65, 85, 0.8);
+  border-radius: 12px;
   padding: 16px;
-  transition: transform 0.2s, border-color 0.2s; /* 两个属性一起加过渡 */
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 
-/* 鼠标放上去：卡片上浮 + 边框发光，小细节大质感 */
 .project-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px) scale(1.02); /* 上浮 + 微放大，双倍装X */
   border-color: var(--accent);
+  box-shadow: 0 12px 28px rgba(56, 189, 248, 0.25);
 }
 
 .project-icon {
@@ -154,14 +275,13 @@ main {
   margin-bottom: 10px;
 }
 
-/* 小标签：技能徽章 */
 .tag {
   display: inline-block;
   font-size: 11px;
   padding: 2px 8px;
   margin-right: 4px;
   border-radius: 99px;
-  background: rgba(56, 189, 248, 0.15); /* 强调色的半透明版 */
+  background: rgba(56, 189, 248, 0.15);
   color: var(--accent);
 }
 
@@ -170,15 +290,16 @@ main {
   width: 100%;
   padding: 10px 12px;
   border-radius: 8px;
-  border: 1px solid #475569;
-  background: #0f172a;
+  border: 1px solid rgba(71, 85, 105, 0.8);
+  background: rgba(11, 17, 32, 0.8);
   color: var(--text);
   font-size: 14px;
-  outline: none;             /* 去掉点击时的默认蓝框 */
+  outline: none;
 }
 
 #nameInput:focus {
-  border-color: var(--accent); /* 聚焦时边框变色，交互反馈 */
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.3); /* 聚焦也发光 */
 }
 
 button {
@@ -186,21 +307,21 @@ button {
   padding: 10px 24px;
   border: none;
   border-radius: 8px;
-  background: var(--accent);
-  color: #0f172a;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  color: #0b1120;
   font-weight: bold;
   font-size: 14px;
-  cursor: pointer;           /* 鼠标放上去变成小手 */
-  transition: transform 0.15s; /* 过渡动画，让变化更柔和 */
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
 }
 
-/* :hover 表示鼠标悬停状态 */
 button:hover {
-  transform: scale(1.05);    /* 放大 5% */
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
 }
 
 button:active {
-  transform: scale(0.95);    /* 按下去缩小，有"按"的感觉 */
+  transform: scale(0.95);
 }
 
 .greet-output {
