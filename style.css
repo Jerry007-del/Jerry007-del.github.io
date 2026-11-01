@@ -74,21 +74,26 @@ body::after {
   padding: 80px 20px 40px;
 }
 
-/* 头像：发光圆环包裹的表情 */
+/* 头像：发光圆环包裹的真人照片 */
 .avatar {
   width: 96px;
   height: 96px;
   margin: 0 auto 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 48px;
   border-radius: 50%;
-  background: var(--card);
   border: 2px solid var(--accent);
   box-shadow: 0 0 24px rgba(56, 189, 248, 0.6),   /* 外发光 */
               inset 0 0 12px rgba(56, 189, 248, 0.3); /* 内发光 */
   animation: pulse 3s ease-in-out infinite; /* 呼吸动画 */
+  overflow: hidden;         /* 让照片被圆形裁切 */
+  padding: 0;
+}
+
+/* 照片本身：铺满圆环，object-fit 保证不变形 */
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* 关键属性：裁切填充，图片不会被拉变形 */
+  display: block;
 }
 
 /* 呼吸动画：光晕一收一放，像活的一样 */
