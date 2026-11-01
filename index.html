@@ -9,8 +9,10 @@
   <!-- 编码方式，UTF-8 能显示中文，不写的话中文可能乱码 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- 这行很关键！让页面在手机上也能正常显示（响应式的基础） -->
-  <title>Jerry 的个人主页</title>
+  <title>Jerry | 软件工程 · 全栈 &amp; AI</title>
   <!-- 浏览器标签页上显示的文字 -->
+  <meta name="description" content="Jerry，河南财经政法大学软件工程专业，主攻全栈开发与 AI 应用，篮球得分后卫，瓦罗兰特钻石。" />
+  <!-- description 是给搜索引擎看的简介，别人搜你名字时显示的那两行字 -->
   <link rel="stylesheet" href="style.css" />
   <!-- 引入外部样式表：页面的"颜值"都写在 style.css 里 -->
 </head>
@@ -20,55 +22,157 @@
 
   <!-- 顶部欢迎区 -->
   <header class="hero">
-    <!-- 头像：发光圆环 + 表情（以后可以换成你的照片） -->
+    <!-- 头像：现在是篮球表情，以后换成你自己的照片（把 🏀 换成 <img src="photo.jpg" />） -->
     <div class="avatar">🏀</div>
     <h1>你好，我是 <span class="highlight">Jerry</span> 👋</h1>
-    <!-- h1 是最大的标题；span 用来圈住一小段文字单独加样式 -->
-    <p class="subtitle">软件工程在读 · Web 方向 · 未来的全栈开发者</p>
+    <p class="subtitle">河南财经政法大学 · 软件工程 · 全栈 &amp; AI 双修</p>
     <p class="typing" id="typing"></p>
     <!-- 这个空标签会被 JS 填充内容，实现"打字机效果" -->
 
-    <!-- 社交入口：GitHub 仓库链接 -->
+    <!-- 社交入口 -->
     <div class="social-row">
       <a class="social-btn" href="https://github.com/Jerry007-del" target="_blank">
         🐱 GitHub @Jerry007-del
       </a>
+      <a class="social-btn" href="#contact">📮 找到我</a>
     </div>
   </header>
 
   <!-- 主要内容区 -->
   <main>
-    <!-- main 标签包住页面的核心内容，一个页面只能有一个 -->
 
     <!-- 关于我 -->
     <section class="card">
-      <!-- section 是一个内容区块；class="card" 让它变成一张卡片 -->
       <h2>🧑‍💻 关于我</h2>
       <p>
-        大二软件工程学生，主攻 Web 方向。喜欢打篮球 还是瓦学弟 
-        目前正在和我的 AI 兄弟一起学全栈开发，目标是自己动手做一个接入 AI 的应用。一步一个脚印 加油
+        河南财经政法大学软件工程在读，大二。郑州生活，代码为伴，球场续命。
       </p>
+      <p>
+        我不太喜欢"我什么都不会"这种开场白。学校的课该学的都学了——C 语言、Java、数据结构与算法、
+        计算机网络、数据库，一路啃下来。学得快不快另说，但底子我认。
+      </p>
+      <p>
+        现在的主线任务很明确：<strong>全栈 + AI 双线推进</strong>。前端能把想法变成看得见的东西，
+        后端能把东西真正跑起来，AI 则决定了这些东西能聪明到什么程度。三个都要，慢慢来，但不打算只停在"会用"。
+      </p>
+      <p class="quote">"别人的第一个网页还在 PPT 里，我的已经在公网上跑着了。" —— Jerry，2026.11</p>
+    </section>
+
+    <!-- 现在在干啥 -->
+    <section class="card">
+      <h2>🎯 当前主线任务</h2>
+      <div class="focus-list">
+        <div class="focus-item">
+          <span class="focus-icon">🌐</span>
+          <div>
+            <strong>全栈开发</strong>
+            <p>HTML / CSS / JS 已上手，正在啃框架与后端，目标是能独立上线一个完整应用。</p>
+          </div>
+        </div>
+        <div class="focus-item">
+          <span class="focus-icon">🤖</span>
+          <div>
+            <strong>AI 应用开发</strong>
+            <p>学调大模型 API、理解 RAG 与 Agent，方向是把 AI 塞进真实的 Web 产品里。</p>
+          </div>
+        </div>
+        <div class="focus-item">
+          <span class="focus-icon">🧩</span>
+          <div>
+            <strong>工程习惯</strong>
+            <p>用 Git 管代码，用 VS Code 写代码，用部署上线代替"在我电脑上能跑"。</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- 技能 -->
     <section class="card">
-      <h2>🛠️ 技能进度条</h2>
+      <h2>🛠️ 技能树</h2>
+      <p class="section-note">百分比不是谦虚，是待解锁的部分还很长。</p>
       <!-- 技能条是纯 CSS 做的，width 越大表示越熟练 -->
       <div class="skill">
-        <span>打篮球 / 打瓦</span>
-        <div class="bar"><div class="bar-fill" style="width: 47%"></div></div>
+        <span>HTML / CSS</span>
+        <div class="bar"><div class="bar-fill" style="width: 72%"></div></div>
       </div>
       <div class="skill">
-        <span>人生梦想进度条</span>
-        <div class="bar"><div class="bar-fill" style="width: 18%"></div></div>
+        <span>JavaScript</span>
+        <div class="bar"><div class="bar-fill" style="width: 60%"></div></div>
       </div>
       <div class="skill">
-        <span>学新东西的速度</span>
-        <div class="bar"><div class="bar-fill" style="width: 90%"></div></div>
+        <span>Java</span>
+        <div class="bar"><div class="bar-fill" style="width: 68%"></div></div>
+      </div>
+      <div class="skill">
+        <span>C 语言</span>
+        <div class="bar"><div class="bar-fill" style="width: 65%"></div></div>
+      </div>
+      <div class="skill">
+        <span>数据结构与算法</span>
+        <div class="bar"><div class="bar-fill" style="width: 58%"></div></div>
+      </div>
+      <div class="skill">
+        <span>AI 应用开发</span>
+        <div class="bar"><div class="bar-fill" style="width: 28%"></div></div>
       </div>
     </section>
 
-    <!-- 作品展示区：v2.0 新增 -->
+    <!-- 时间线 -->
+    <section class="card">
+      <h2>🕐 我的时间线</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+          <div class="timeline-content">
+            <strong>2024</strong>
+            <p>进入河南财经政法大学软件工程专业，从 C 语言开始认识代码。</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+          <div class="timeline-content">
+            <strong>2025</strong>
+            <p>啃 Java、数据结构、计算机网络，开始觉得写程序这事有意思。</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+          <div class="timeline-content">
+            <strong>2026.11</strong>
+            <p>用 HTML + CSS + JS 手搓出第一个网页，并通过 GitHub Pages 部署上线 —— 从 0 到 1。</p>
+          </div>
+        </div>
+        <div class="timeline-item future">
+          <span class="timeline-dot"></span>
+          <div class="timeline-content">
+            <strong>下一步</strong>
+            <p>完成第一个 AI Web 应用，把全栈和 AI 真正接到一起。🚧</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 爱好专区 -->
+    <section class="card">
+      <h2>🎮 球场与枪线</h2>
+      <p class="section-note">会写代码，也会玩。这两件事都需要手感。</p>
+      <div class="hobby-grid">
+        <div class="hobby-card">
+          <div class="hobby-icon">🏀</div>
+          <h3>篮球 · 得分后卫</h3>
+          <p>得分后卫（SG）。跑位、接球、出手，节奏对了就是一连串。</p>
+          <span class="tag">得分后卫</span><span class="tag">手感流</span>
+        </div>
+        <div class="hobby-card">
+          <div class="hobby-icon">🎯</div>
+          <h3>瓦罗兰特 · 钻石</h3>
+          <p>钻石段位。枪法靠练，意识靠想——和调试代码是同一套逻辑。</p>
+          <span class="tag">钻石</span><span class="tag">瓦学弟</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 作品展示区 -->
     <section class="card">
       <h2>🚀 我的作品</h2>
       <p class="section-note">会持续更新，见证我从 0 到 1 👇</p>
@@ -79,8 +183,8 @@
         <!-- 作品1：就是你现在看的这个主页 -->
         <div class="project-card">
           <div class="project-icon">🏠</div>
-          <h3>个人主页 v2.0</h3>
-          <p>我的第一个网页！纯 HTML + CSS + JS 手搓，正在学的第一个项目。</p>
+          <h3>个人主页 v4.0</h3>
+          <p>我的第一个网页，纯手写 HTML + CSS + JS，极光背景 + 玻璃质感，已部署上线。</p>
           <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span>
         </div>
 
@@ -88,8 +192,8 @@
         <div class="project-card">
           <div class="project-icon">🤖</div>
           <h3>AI 小应用（筹备中）</h3>
-          <p>计划做一个接入大模型 API 的小工具，敬请期待...</p>
-          <span class="tag">AI</span><span class="tag">敬请期待</span>
+          <p>接入大模型 API 的 Web 工具，全栈 + AI 的第一次合体，敬请期待。</p>
+          <span class="tag">AI</span><span class="tag">全栈</span>
         </div>
 
       </div>
@@ -104,11 +208,21 @@
       <!-- 这个空 div 用来显示 JS 生成的问候语 -->
       <div id="greetOutput" class="greet-output"></div>
     </section>
+
+    <!-- 联系方式 -->
+    <section class="card" id="contact">
+      <h2>📮 找到我</h2>
+      <p>想聊技术、约球、还是开黑，都可以。代码在 GitHub，人在郑州。</p>
+      <div class="social-row" style="margin-top: 16px;">
+        <a class="social-btn" href="https://github.com/Jerry007-del" target="_blank">🐱 GitHub</a>
+        <a class="social-btn" href="https://jerry007-del.github.io" target="_blank">🌐 本站源码</a>
+      </div>
+    </section>
   </main>
 
   <!-- 页脚 -->
   <footer>
-    <p>© 2026 Jerry · 由 bro 协助打造 · Powered by 好奇心</p>
+    <p>© 2026 Jerry · 河南财经政法大学 · 由 bro 协助打造 · Powered by 好奇心</p>
   </footer>
 
   <!-- 引入 JS：页面的"行为"都写在 script.js 里。放在 body 末尾，保证页面先加载完 -->

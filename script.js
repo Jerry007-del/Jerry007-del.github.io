@@ -6,9 +6,10 @@ const typingEl = document.querySelector("#typing");
 
 // 2. 准备要循环显示的句子
 const sentences = [
-  "我正在学 自学ai",
-  "目标：做自己想用的软件！",
-  "Patience is ...key in life",
+  "全栈 + AI，双线推进中...",
+  "郑大活人，河财软工，得分后卫 🏀",
+  "瓦罗兰特钻石，代码也想打上钻石",
+  "第一个网页，已上线 🚀",
 ];
 
 let sentenceIndex = 0; // 当前第几句
